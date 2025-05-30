@@ -1,9 +1,7 @@
-
-Sarah Nicole Geraldo <sarah.geraldo@aluno.senai.br>
-10:59 (há 7 minutos)
-para mim, julia.picone, joao.p.lopes6
-
 # Projeto Blog com SQLite, Nodejs, ExpressJS
+
+### Sobre o projeto
+• É um blog com espaço para adição de informações, inscrição de novos usuários e acesso aos já cadastrados. O site possuí criptografia e memória de forma que os logados se encontrem na página de usuários (dashboard).
 
 ### Execução
 1 - Clonar o repositório <br>
