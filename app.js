@@ -45,6 +45,9 @@ app.use(
 // Middleware para isto, que neste caso é o express.static, que gerencia rotas estáticas
 app.use("/static", express.static(__dirname + "/static"));
 
+
+app.use(express.json());
+
 // Middleware para processar as requisições do Body Parameters do cliente
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -102,7 +105,7 @@ app.get("/cadastro", (req, res) => {
 
 // POST do cadastro
 app.post("/cadastro", (req, res) => {
-  console.log("POST /cadastro");
+  console.log("POST /cadastro - Recebido");
   // Linha para depurar se esta vindo dados no req.body
   !req.body
     ? console.log(`Body vazio: ${req.body}`)
