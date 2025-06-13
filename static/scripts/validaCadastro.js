@@ -28,20 +28,21 @@ const checkNome = () => {
 
 /* ---------- FUNÇÃO PARA VERIFICAR O EMAIL --------------------- */
 const checkEmail = (emailValue) => {
-  const partesEmail = email.split("@");
+  const checkEmail = (emailValue) => {
+    const emailTrimmed = emailValue.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailTrimmed)) {
+      return false;
+    }
+    const partesEmail = emailTrimmed.split("@");
+    if (partesEmail.length === 2) {
+      const domain = partesEmail[1].toLowerCase();
+      const allowedDomains = ["gmail.com", "outlook.com", "hotmail.com", "icloud.com", "yahoo.com"]; // Adicione mais se precisar
 
-  if (
-    (partesEmail.length === 2 &&
-      partesEmail[1].toLowerCase() === "gmail.com") ||
-    (partesEmail.length === 2 &&
-      partesEmail[1].toLowerCase() === "outlook.com") ||
-    (partesEmail.length === 2 && partesEmail[1].toLowerCase() === "hotmail.com")
-  ) {
-    return true;
-  } else {
+      return true;
+    }
     return false;
-  }
-};
+  };
 /* --------------------------------------------------------------------- */
 
 /* ---------- FUNÇÃO PARA VERIFICAR IGUALDADE DAS SENHAS --------------- */
@@ -53,10 +54,12 @@ function checkPasswordMatch() {
 /* ----------- FUNÇÃO PARA INSERIR MASCARA NO TELEFONE ----------------- */
 
 function maskPhoneNumber(event) {
-  let celular = event.target.value;
+  let celularValue = event.target.value;
 
   if (/[A-Za-zÀ-ÿ]/.test(celular)) {
     createDisplayMsgError("O celular deve conter apenas números!");
+    event.target.value = celularValue.replace(/[A-Za-zÀ-ÿ]/g, '');
+    celularValue = event.target.value; //Atualiza a variável local
   } else {
     createDisplayMsgError("");
   }

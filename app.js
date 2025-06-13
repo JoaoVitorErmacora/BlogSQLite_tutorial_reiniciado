@@ -45,7 +45,7 @@ app.use(
 // Middleware para isto, que neste caso é o express.static, que gerencia rotas estáticas
 app.use("/static", express.static(__dirname + "/static"));
 
-
+//
 app.use(express.json());
 
 // Middleware para processar as requisições do Body Parameters do cliente
@@ -107,6 +107,7 @@ app.get("/cadastro", (req, res) => {
 app.post("/cadastro", (req, res) => {
   console.log("POST /cadastro - Recebido");
 
+  //verifica se o corpo da requisição existe e tem dados 
   if(! req.body || Object.keys(req.body).length === 0){
     console.log("Corpo da requisição vazio.");
     return res.status(400).json({ success: false, message: "Nenhum dado recebido."});
@@ -200,36 +201,7 @@ app.post("/cadastro", (req, res) => {
   app.get("/sobre", (req, res) => {
     
   })
-  // Colocar aqui as validações e inclusão no banco de dados do cadastro do usuário
-  // 1. Validar dados do usuário
-  // 2. saber se ele já existe no banco
-  const query =
-    // "SELECT * FROM users WHERE email=? OR cpf=? OR rg=? OR username=?";
-    "SELECT * FROM users WHERE username=?";
-
-  // db.get(query, [email, cpf, rg, username], (err, row) => {
-  db.get(query, [username], (err, row) => {
-    if (err) throw err;
-    console.log(`LINHA RETORNADA do SELECT USER: ${JSON.stringify(row)}`);
-    if (row) {
-      // A variável 'row' irá retornar os dados do banco de dados,
-      // executado através do SQL, variável query
-      res.redirect("/register_failed");
-    } else {
-      // 3. Se usuário não existe no banco cadastrar
-      const insertQuery =
-        "INSERT INTO users (username, password, email, celular, cpf, rg) VALUES (?,?,?,?,?,?)";
-      db.run(
-        insertQuery,
-        [username, password, email, celular, cpf, rg],
-        (err) => {
-          // Inserir a lógica do INSERT
-          if (err) throw err;
-          res.redirect("/login");
-        }
-      );
-    }
-  });
+  
 
 
 // Pregramação de rotas do método GET do HTTP 'app.get()'
@@ -308,3 +280,4 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor sendo executado na porta ${PORT}!`);
 });
+
